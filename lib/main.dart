@@ -1,3 +1,4 @@
+import 'package:bazaar/screens/product_detail_screen.dart';
 import 'package:bazaar/screens/products_overview_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -12,11 +13,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
-      ),
-      home: ProductsOverViewScreen(),
-    );
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.deepOrange,
+          accentColor: Colors.orange,
+          fontFamily: 'Lato',
+        ),
+        home: ProductsOverViewScreen(),
+        routes: {
+          ProductDetailsScreen.routeName: (ctx) => ProductDetailsScreen(),
+        });
   }
 }
