@@ -1,28 +1,69 @@
+import 'package:bazaar/widgets/products_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
+import '../models/products.dart';
+
 class ProductsOverViewScreen extends StatelessWidget {
-  const ProductsOverViewScreen({Key? key}) : super(key: key);
+  ProductsOverViewScreen({Key? key}) : super(key: key);
+
+  final loadedProducts = [
+    Product(
+      id: 'p1',
+      title: 'Red Shirt',
+      description: 'A red shirt - it is pretty red!',
+      price: '29.99',
+      imageUrl:
+          'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
+    ),
+    Product(
+      id: 'p2',
+      title: 'Trousers',
+      description: 'A nice pair of trousers.',
+      price: '59.99',
+      imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Trousers%2C_dress_%28AM_1960.022-8%29.jpg/512px-Trousers%2C_dress_%28AM_1960.022-8%29.jpg',
+    ),
+    Product(
+      id: 'p3',
+      title: 'Yellow Scarf',
+      description: 'Warm and cozy - exactly what you need for the winter.',
+      price: '19.99',
+      imageUrl:
+          'https://live.staticflickr.com/4043/4438260868_cc79b3369d_z.jpg',
+    ),
+    Product(
+      id: 'p4',
+      title: 'A Pan',
+      description: 'Prepare any meal you want.',
+      price: '49.99',
+      imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg',
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Bazaar'),
-      ),
-      body: MasonryGridView.count(
-        crossAxisCount: 3,
-        crossAxisSpacing: 9,
-        mainAxisSpacing: 10,
-        itemBuilder: (ctx, index) {
-          return Container(
-            height: index % 2 == 0 ? 120 : 300,
-            color: index % 2 == 0 ? Colors.black : Colors.deepOrange,
-            child: Text(index.toString()),
-          );
-        },
-        itemCount: 50,
-      ),
-    );
+        appBar: AppBar(
+          title: const Text('Bazaar'),
+        ),
+        body: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 1.5,
+          ),
+          padding: const EdgeInsets.all(10),
+          itemBuilder: (ctx, index) {
+            return ProductItemTile(
+              id: loadedProducts[index].id,
+              imgUrl: loadedProducts[index].imageUrl,
+              title: loadedProducts[index].title,
+            );
+          },
+          itemCount: loadedProducts.length,
+        ));
   }
 }
