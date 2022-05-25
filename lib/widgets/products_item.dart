@@ -1,43 +1,47 @@
 import 'package:bazaar/screens/product_detail_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../Provider/products.dart';
 
 class ProductItemTile extends StatelessWidget {
   const ProductItemTile({
     Key? key,
-    required this.id,
-    required this.imgUrl,
-    required this.title,
   }) : super(key: key);
-  final String id;
-  final String imgUrl;
-  final String title;
 
   @override
   Widget build(BuildContext context) {
+    final product = Provider.of<Product>(context);
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: GridTile(
         child: GestureDetector(
           onTap: () {
-            Navigator.of(context)
-                .pushNamed(ProductDetailsScreen.routeName, arguments: id);
+            Navigator.of(context).pushNamed(ProductDetailsScreen.routeName,
+                arguments: product.id);
           },
           child: Image.network(
-            imgUrl,
+            product.imageUrl,
             fit: BoxFit.cover,
           ),
         ),
         footer: GridTileBar(
           backgroundColor: Colors.black87,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.favorite,
+          leading: Consumer<Product>(
+            builder: (context, product, child) => IconButton(
+              icon: Icon(
+                product.isFavourite
+                    ? Icons.favorite
+                    : Icons.favorite_outline_outlined,
+              ),
+              onPressed: () {
+                product.toggleFavourite();
+              },
+              color: Theme.of(context).accentColor,
             ),
-            onPressed: () {},
-            color: Theme.of(context).accentColor,
           ),
           title: Text(
-            title,
+            product.title,
             textAlign: TextAlign.center,
           ),
           trailing: IconButton(
