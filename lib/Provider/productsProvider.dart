@@ -38,8 +38,14 @@ class ProductsProvider with ChangeNotifier {
     ),
   ];
 
+  // bool _showFavouritesOnly = false;
+
   List<Product> get items {
     return [..._items];
+  }
+
+  List<Product> get favouriteItems {
+    return _items.where((element) => element.isFavourite).toList();
   }
 
   Product findByID(String id) {
@@ -49,4 +55,14 @@ class ProductsProvider with ChangeNotifier {
   void addProduct() {
     notifyListeners();
   }
+
+  // void showFav() {
+  //   _showFavouritesOnly = true;
+  //   notifyListeners();
+  // }
+
+  // void showAll() {
+  //   _showFavouritesOnly = false;
+  //   notifyListeners();
+  // }
 }
