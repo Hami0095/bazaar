@@ -7,6 +7,8 @@ import './screens/products_overview_screen.dart';
 
 void main() {
   runApp(const MyApp());
+  // products == mera productProvider
+  // product == mera product
 }
 
 class MyApp extends StatelessWidget {

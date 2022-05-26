@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/products_item.dart';
 import '../Provider/productsProvider.dart';
+import '../widgets/products_item.dart';
 
 class ProductGrid extends StatelessWidget {
-  const ProductGrid({
+  bool showFav;
+  ProductGrid({
     Key? key,
+    required this.showFav,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final productsData = Provider.of<ProductsProvider>(context);
-    final loadedProducts = productsData.items;
+    final loadedProducts =
+        showFav ? productsData.favouriteItems : productsData.items;
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
