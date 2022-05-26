@@ -24,6 +24,7 @@ class _ProductsOverViewScreenState extends State<ProductsOverViewScreen> {
   var showOnlyFav = false;
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final productsContainer =
         Provider.of<ProductsProvider>(context, listen: false);
     return Scaffold(
