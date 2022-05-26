@@ -1,9 +1,9 @@
-import 'package:bazaar/screens/product_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../Provider/cart.dart';
 import '../Provider/products.dart';
+import '../screens/product_detail_screen.dart';
 
 class ProductItemTile extends StatelessWidget {
   const ProductItemTile({

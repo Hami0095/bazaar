@@ -1,15 +1,14 @@
-import 'package:bazaar/Provider/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'Provider/productsProvider.dart';
+import './Provider/productsProvider.dart';
 import './screens/product_detail_screen.dart';
 import './screens/products_overview_screen.dart';
+import './Provider/cart.dart';
+import './screens/cart_screen.dart';
 
 void main() {
   runApp(const MyApp());
-  // products == mera productProvider
-  // product == mera product
 }
 
 class MyApp extends StatelessWidget {
@@ -34,10 +33,11 @@ class MyApp extends StatelessWidget {
             accentColor: Colors.orange,
             fontFamily: 'Lato',
           ),
-          home: ProductsOverViewScreen(),
+          home: const ProductsOverViewScreen(),
           routes: {
             ProductDetailsScreen.routeName: (ctx) =>
                 const ProductDetailsScreen(),
+            CartScreen.routeName: (ctx) => const CartScreen(),
           }),
     );
   }

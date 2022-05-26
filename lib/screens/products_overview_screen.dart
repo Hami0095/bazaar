@@ -1,14 +1,16 @@
-import 'package:bazaar/Provider/productsProvider.dart';
-import 'package:bazaar/widgets/badge.dart';
-import 'package:bazaar/widgets/products_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../Provider/cart.dart';
-import '../Provider/products.dart';
+import '../Provider/productsProvider.dart';
+import '../screens/cart_screen.dart';
+import '../widgets/badge.dart';
+import '../widgets/products_grid.dart';
 
 enum FilterOptions {
+  // ignore: constant_identifier_names
   Favourites,
+  // ignore: constant_identifier_names
   All,
 }
 
@@ -61,7 +63,9 @@ class _ProductsOverViewScreenState extends State<ProductsOverViewScreen> {
               color: Colors.white,
             ),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(CartScreen.routeName);
+              },
               icon: const Icon(Icons.shopping_cart),
             ),
           ),
