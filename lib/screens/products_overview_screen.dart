@@ -1,12 +1,16 @@
-import 'package:bazaar/Provider/productsProvider.dart';
-import 'package:bazaar/widgets/products_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../Provider/products.dart';
+import '../Provider/cart.dart';
+import '../Provider/productsProvider.dart';
+import '../screens/cart_screen.dart';
+import '../widgets/badge.dart';
+import '../widgets/products_grid.dart';
 
 enum FilterOptions {
+  // ignore: constant_identifier_names
   Favourites,
+  // ignore: constant_identifier_names
   All,
 }
 
@@ -19,10 +23,10 @@ class ProductsOverViewScreen extends StatefulWidget {
 
 class _ProductsOverViewScreenState extends State<ProductsOverViewScreen> {
   final loadedProducts = [];
-
+  var showOnlyFav = false;
   @override
   Widget build(BuildContext context) {
-    var showOnlyFav = false;
+    // ignore: unused_local_variable
     final productsContainer =
         Provider.of<ProductsProvider>(context, listen: false);
     return Scaffold(
@@ -41,14 +45,29 @@ class _ProductsOverViewScreenState extends State<ProductsOverViewScreen> {
                 ]),
             icon: const Icon(Icons.more_vert),
             onSelected: (FilterOptions selectedIndex) {
-              setState(() {
-                if (selectedIndex == FilterOptions.Favourites) {
-                  showOnlyFav = true;
-                } else {
-                  showOnlyFav = false;
-                }
-              });
+              setState(
+                () {
+                  if (selectedIndex == FilterOptions.Favourites) {
+                    showOnlyFav = true;
+                  } else {
+                    showOnlyFav = false;
+                  }
+                },
+              );
             },
+          ),
+          Consumer<Cart>(
+            builder: (_, cart, ch) => Badge(
+              child: ch,
+              value: cart.itemCount.toString(),
+              color: Colors.white,
+            ),
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(CartScreen.routeName);
+              },
+              icon: const Icon(Icons.shopping_cart),
+            ),
           ),
         ],
         title: const Text('Bazaar'),
