@@ -1,3 +1,4 @@
+import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 
 class CartItems extends StatelessWidget {
@@ -21,6 +22,14 @@ class CartItems extends StatelessWidget {
         horizontal: 15,
       ),
       child: ListTile(
+        leading: ClayContainer(
+          color: Theme.of(context).primaryColorDark,
+          height: 90,
+          width: 90,
+          customBorderRadius: const BorderRadius.only(
+              topRight: Radius.elliptical(150, 150),
+              bottomLeft: Radius.circular(50)),
+        ),
         // leading: CircleAvatar(
         //   child: Text('\$ $price'),
         //   radius: 50,
