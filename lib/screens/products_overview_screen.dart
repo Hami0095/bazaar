@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../Provider/cart.dart';
 import '../Provider/productsProvider.dart';
 import '../screens/cart_screen.dart';
+import '../widgets/app_drawer.dart';
 import '../widgets/badge.dart';
 import '../widgets/products_grid.dart';
 
@@ -30,6 +31,7 @@ class _ProductsOverViewScreenState extends State<ProductsOverViewScreen> {
     final productsContainer =
         Provider.of<ProductsProvider>(context, listen: false);
     return Scaffold(
+      drawer: const AppDrawer(),
       appBar: AppBar(
         actions: [
           PopupMenuButton(
