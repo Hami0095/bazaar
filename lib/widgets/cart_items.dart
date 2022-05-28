@@ -1,4 +1,3 @@
-import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -50,6 +49,42 @@ class CartItems extends StatelessWidget {
       direction: DismissDirection.endToStart,
       onDismissed: (direction) {
         Provider.of<Cart>(context, listen: false).removeItem(productId);
+      },
+      confirmDismiss: (direction) {
+        return showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text(
+              'Are You Sure?',
+            ),
+            content: const Text(
+                'Do you want to remove the item from the cart permanently?'),
+            actions: [
+              TextButton(
+                child: Text(
+                  'No',
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(ctx).pop(false);
+                },
+              ),
+              TextButton(
+                child: Text(
+                  'YES',
+                  style: TextStyle(
+                    color: Theme.of(context).errorColor,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(ctx).pop(true);
+                },
+              ),
+            ],
+          ),
+        );
       },
     );
   }
