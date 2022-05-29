@@ -23,7 +23,9 @@ class UserProducts extends StatelessWidget {
           children: [
             IconButton(
               icon: const Icon(Icons.edit),
-              onPressed: () {},
+              onPressed: () {
+                // To-do : GO to edit screen:
+              },
             ),
             IconButton(
               icon: Icon(
