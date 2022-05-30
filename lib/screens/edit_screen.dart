@@ -17,7 +17,7 @@ class _EditScreenState extends State<EditScreen> {
   final _imageUrlFocusNode = FocusNode();
   final _descFocusNode = FocusNode();
   final _form = GlobalKey<FormState>();
-  final _editedProduct = Product(
+  var _editedProduct = Product(
     id: DateTime.now().toString(),
     description: '',
     price: '',
@@ -42,6 +42,11 @@ class _EditScreenState extends State<EditScreen> {
 
   void updateImgUrl() {
     if (!_imageUrlFocusNode.hasFocus) {
+      if (_imgController.text.isEmpty ||
+          !_imgController.text.startsWith('http') &&
+              !_imgController.text.startsWith('https')) {
+        return;
+      }
       setState(() {});
     }
   }
@@ -86,7 +91,13 @@ class _EditScreenState extends State<EditScreen> {
                   FocusScope.of(context).requestFocus(_priceFocus);
                 },
                 onSaved: (value) {
-                  _editedProduct.title = value!;
+                  _editedProduct = Product(
+                    id: _editedProduct.id,
+                    imageUrl: _editedProduct.imageUrl,
+                    title: value!,
+                    price: _editedProduct.price,
+                    description: _editedProduct.description,
+                  );
                 },
                 validator: (v) {
                   if (v!.isEmpty) {
@@ -97,15 +108,31 @@ class _EditScreenState extends State<EditScreen> {
                 },
               ),
               TextFormField(
-                  decoration: const InputDecoration(
-                    label: Text('Price'),
-                  ),
-                  textInputAction: TextInputAction.next,
-                  focusNode: _priceFocus,
-                  keyboardType: TextInputType.number,
-                  onSaved: (value) {
-                    _editedProduct.price = value!;
-                  }),
+                decoration: const InputDecoration(
+                  label: Text('Price'),
+                ),
+                textInputAction: TextInputAction.next,
+                focusNode: _priceFocus,
+                keyboardType: TextInputType.number,
+                onSaved: (value) {
+                  _editedProduct = Product(
+                    id: _editedProduct.id,
+                    imageUrl: _editedProduct.imageUrl,
+                    title: _editedProduct.title,
+                    price: value!,
+                    description: _editedProduct.description,
+                  );
+                },
+                validator: (v) {
+                  if (v!.isEmpty) {
+                    return 'Please enter some value';
+                  } else if (double.parse(v) <= 0) {
+                    return 'Please Enter some value greater than 0';
+                  } else {
+                    return null;
+                  }
+                },
+              ),
               TextFormField(
                 decoration: const InputDecoration(
                   label: Text('Description'),
@@ -114,7 +141,22 @@ class _EditScreenState extends State<EditScreen> {
                 keyboardType: TextInputType.multiline,
                 focusNode: _descFocusNode,
                 onSaved: (value) {
-                  _editedProduct.description = value!;
+                  _editedProduct = Product(
+                    id: _editedProduct.id,
+                    imageUrl: _editedProduct.imageUrl,
+                    title: _editedProduct.title,
+                    price: _editedProduct.price,
+                    description: value!,
+                  );
+                },
+                validator: (v) {
+                  if (v!.isEmpty) {
+                    return 'Please enter some correct value.';
+                  } else if (v.length < 10) {
+                    return 'Please enter at least 10 characters.';
+                  } else {
+                    return null;
+                  }
                 },
               ),
               Row(
@@ -145,13 +187,29 @@ class _EditScreenState extends State<EditScreen> {
                       controller: _imgController,
                       focusNode: _imageUrlFocusNode,
                       onSaved: (val) {
-                        _editedProduct.imageUrl = val!;
+                        _editedProduct = Product(
+                          id: _editedProduct.id,
+                          imageUrl: val!,
+                          title: _editedProduct.title,
+                          price: _editedProduct.price,
+                          description: _editedProduct.description,
+                        );
                       },
                       onEditingComplete: () {
                         setState(() {});
                       },
                       onFieldSubmitted: (_) {
                         saveForm();
+                      },
+                      validator: (val) {
+                        if (val!.isEmpty) {
+                          return 'Bhai koi kaam tw sahi kr lia kroo.';
+                        } else if (val.startsWith('http') &&
+                            val.startsWith('https')) {
+                          return 'Sahi link nai hai bhai';
+                        } else {
+                          return null;
+                        }
                       },
                     ),
                   ),
