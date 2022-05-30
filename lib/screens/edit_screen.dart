@@ -56,7 +56,7 @@ class _EditScreenState extends State<EditScreen> {
           key: _form,
           child: ListView(
             children: [
-              TextFor mField(
+              TextFormField(
                 decoration: const InputDecoration(
                   label: Text('Title'),
                 ),

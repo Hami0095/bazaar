@@ -12,31 +12,37 @@ class UserProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(title),
-      leading: CircleAvatar(
-        backgroundImage: NetworkImage(imgUrl),
-      ),
-      trailing: Container(
-        width: 99,
-        child: Row(
-          children: [
-            IconButton(
-              icon: const Icon(Icons.edit),
-              onPressed: () {
-                // To-do : GO to edit screen:
-              },
+    return Column(
+      children: [
+        ListTile(
+          title: Text(title),
+          leading: CircleAvatar(
+            backgroundImage: NetworkImage(imgUrl),
+          ),
+          trailing: Container(
+            width: 99,
+            // height: 120,
+            child: Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.edit),
+                  onPressed: () {
+                    // To-do : GO to edit screen:
+                  },
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.delete,
+                    color: Theme.of(context).errorColor,
+                  ),
+                  onPressed: () {},
+                ),
+              ],
             ),
-            IconButton(
-              icon: Icon(
-                Icons.delete,
-                color: Theme.of(context).errorColor,
-              ),
-              onPressed: () {},
-            ),
-          ],
+          ),
         ),
-      ),
+        const Divider(),
+      ],
     );
   }
 }
