@@ -1,5 +1,7 @@
+import 'package:bazaar/Provider/productsProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 import '../Provider/products.dart';
 
@@ -27,7 +29,37 @@ class _EditScreenState extends State<EditScreen> {
   @override
   void initState() {
     _imageUrlFocusNode.addListener(updateImgUrl);
+
     super.initState();
+  }
+
+  var _isInit = true;
+  var _initValues = {
+    'title': '',
+    'id': '',
+    'price': '',
+    'description': '',
+    'imgUrl': '',
+  };
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      final productId = ModalRoute.of(context)?.settings.arguments as String;
+      if (productId != null) {
+        _editedProduct = Provider.of<ProductsProvider>(context, listen: false)
+            .findByID(productId);
+        _initValues = {
+          'title': _editedProduct.title,
+          'id': _editedProduct.id,
+          'price': _editedProduct.price,
+          'description': _editedProduct.description,
+          'imgUrl': '',
+        };
+        _imgController.text = _editedProduct.imageUrl;
+      }
+    }
+    _isInit = false;
+    super.didChangeDependencies();
   }
 
   @override
@@ -57,11 +89,12 @@ class _EditScreenState extends State<EditScreen> {
       return;
     }
     _form.currentState?.save();
-    print(_editedProduct.id);
-    print(_editedProduct.description);
-    print(_editedProduct.imageUrl);
-    print(_editedProduct.price);
-    print(_editedProduct.title);
+    if (_editedProduct.id != null) {
+    } else {
+      Provider.of<ProductsProvider>(context, listen: false)
+          .addProduct(_editedProduct);
+    }
+    Navigator.of(context).pop();
   }
 
   @override
@@ -73,7 +106,12 @@ class _EditScreenState extends State<EditScreen> {
         ),
         actions: [
           IconButton(
-              onPressed: (() => saveForm()), icon: const Icon(Icons.save))
+            onPressed: (() => saveForm()),
+            icon: const Icon(
+              Icons.save,
+              color: Colors.white,
+            ),
+          ),
         ],
       ),
       body: Padding(
@@ -83,6 +121,7 @@ class _EditScreenState extends State<EditScreen> {
           child: ListView(
             children: [
               TextFormField(
+                initialValue: _initValues['title'],
                 decoration: const InputDecoration(
                   label: Text('Title'),
                 ),
@@ -108,6 +147,7 @@ class _EditScreenState extends State<EditScreen> {
                 },
               ),
               TextFormField(
+                initialValue: _initValues['price'],
                 decoration: const InputDecoration(
                   label: Text('Price'),
                 ),
@@ -134,6 +174,7 @@ class _EditScreenState extends State<EditScreen> {
                 },
               ),
               TextFormField(
+                initialValue: _initValues['description'],
                 decoration: const InputDecoration(
                   label: Text('Description'),
                 ),

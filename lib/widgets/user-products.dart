@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
+import 'package:bazaar/screens/edit_screen.dart';
+
 class UserProducts extends StatelessWidget {
+  final String id;
   final String title;
   final String imgUrl;
 
   const UserProducts({
     Key? key,
+    required this.id,
     required this.title,
     required this.imgUrl,
   }) : super(key: key);
@@ -27,7 +31,8 @@ class UserProducts extends StatelessWidget {
                 IconButton(
                   icon: const Icon(Icons.edit),
                   onPressed: () {
-                    // To-do : GO to edit screen:
+                    Navigator.of(context)
+                        .pushNamed(EditScreen.routeName, arguments: id);
                   },
                 ),
                 IconButton(
