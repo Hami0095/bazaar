@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../Provider/products.dart';
+
 class EditScreen extends StatefulWidget {
   static const routeName = '/edit-screen';
   const EditScreen({Key? key}) : super(key: key);
@@ -15,6 +17,13 @@ class _EditScreenState extends State<EditScreen> {
   final _imageUrlFocusNode = FocusNode();
   final _descFocusNode = FocusNode();
   final _form = GlobalKey<FormState>();
+  final _editedProduct = Product(
+    id: DateTime.now().toString(),
+    description: '',
+    price: '',
+    imageUrl: '',
+    title: '',
+  );
   @override
   void initState() {
     _imageUrlFocusNode.addListener(updateImgUrl);
@@ -37,7 +46,19 @@ class _EditScreenState extends State<EditScreen> {
     }
   }
 
-  void saveForm() {}
+  void saveForm() {
+    final _isValid = _form.currentState?.validate();
+    if (!_isValid!) {
+      return;
+    }
+    _form.currentState?.save();
+    print(_editedProduct.id);
+    print(_editedProduct.description);
+    print(_editedProduct.imageUrl);
+    print(_editedProduct.price);
+    print(_editedProduct.title);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,15 +85,27 @@ class _EditScreenState extends State<EditScreen> {
                 onFieldSubmitted: (_) {
                   FocusScope.of(context).requestFocus(_priceFocus);
                 },
+                onSaved: (value) {
+                  _editedProduct.title = value!;
+                },
+                validator: (v) {
+                  if (v!.isEmpty) {
+                    return 'Please enter value';
+                  } else {
+                    return null;
+                  }
+                },
               ),
               TextFormField(
-                decoration: const InputDecoration(
-                  label: Text('Price'),
-                ),
-                textInputAction: TextInputAction.next,
-                focusNode: _priceFocus,
-                keyboardType: TextInputType.number,
-              ),
+                  decoration: const InputDecoration(
+                    label: Text('Price'),
+                  ),
+                  textInputAction: TextInputAction.next,
+                  focusNode: _priceFocus,
+                  keyboardType: TextInputType.number,
+                  onSaved: (value) {
+                    _editedProduct.price = value!;
+                  }),
               TextFormField(
                 decoration: const InputDecoration(
                   label: Text('Description'),
@@ -80,6 +113,9 @@ class _EditScreenState extends State<EditScreen> {
                 maxLines: 3,
                 keyboardType: TextInputType.multiline,
                 focusNode: _descFocusNode,
+                onSaved: (value) {
+                  _editedProduct.description = value!;
+                },
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -108,6 +144,9 @@ class _EditScreenState extends State<EditScreen> {
                       textInputAction: TextInputAction.done,
                       controller: _imgController,
                       focusNode: _imageUrlFocusNode,
+                      onSaved: (val) {
+                        _editedProduct.imageUrl = val!;
+                      },
                       onEditingComplete: () {
                         setState(() {});
                       },
