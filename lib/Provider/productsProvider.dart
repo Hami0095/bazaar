@@ -52,17 +52,24 @@ class ProductsProvider with ChangeNotifier {
     return items.firstWhere((element) => element.id == id);
   }
 
-  void addProduct() {
+  void addProduct(Product product) {
+    final newProduct = Product(
+      id: DateTime.now().toString(),
+      imageUrl: product.imageUrl,
+      title: product.title,
+      price: product.price,
+      description: product.description,
+    );
+    _items.add(newProduct);
+    _items.insert(0, newProduct);
     notifyListeners();
   }
 
-  // void showFav() {
-  //   _showFavouritesOnly = true;
-  //   notifyListeners();
-  // }
-
-  // void showAll() {
-  //   _showFavouritesOnly = false;
-  //   notifyListeners();
-  // }
+  void updateProduct(String id, Product p) {
+    int prodIndex = _items.indexWhere((element) => element.id == p.id);
+    if(prodIndex>=0){
+      _items[prodIndex] = p;
+      notifyListeners();
+    }else{print('...');}
+  }
 }
