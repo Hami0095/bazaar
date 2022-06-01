@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import './products.dart';
+import 'package:http/http.dart' as http;
 
 class ProductsProvider with ChangeNotifier {
   final List<Product> _items = [
@@ -53,6 +56,9 @@ class ProductsProvider with ChangeNotifier {
   }
 
   void addProduct(Product product) {
+    final url = Uri.parse(
+        'https://console.firebase.google.com/u/0/project/bazaar-8d3e6/database/bazaar-8d3e6-default-rtdb/data/~2F/productsProvider.json');
+    http.post(url, body: json.encode(product));
     final newProduct = Product(
       id: DateTime.now().toString(),
       imageUrl: product.imageUrl,

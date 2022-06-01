@@ -90,6 +90,8 @@ class _EditScreenState extends State<EditScreen> {
     }
     _form.currentState?.save();
     if (_editedProduct.id != null) {
+      Provider.of<ProductsProvider>(context, listen: false)
+          .updateProduct(_editedProduct.id, _editedProduct);
     } else {
       Provider.of<ProductsProvider>(context, listen: false)
           .addProduct(_editedProduct);
@@ -132,6 +134,7 @@ class _EditScreenState extends State<EditScreen> {
                 onSaved: (value) {
                   _editedProduct = Product(
                     id: _editedProduct.id,
+                    isFavourite: _editedProduct.isFavourite,
                     imageUrl: _editedProduct.imageUrl,
                     title: value!,
                     price: _editedProduct.price,
@@ -157,6 +160,7 @@ class _EditScreenState extends State<EditScreen> {
                 onSaved: (value) {
                   _editedProduct = Product(
                     id: _editedProduct.id,
+                    isFavourite: _editedProduct.isFavourite,
                     imageUrl: _editedProduct.imageUrl,
                     title: _editedProduct.title,
                     price: value!,
@@ -188,6 +192,7 @@ class _EditScreenState extends State<EditScreen> {
                     title: _editedProduct.title,
                     price: _editedProduct.price,
                     description: value!,
+                    isFavourite: _editedProduct.isFavourite,
                   );
                 },
                 validator: (v) {
@@ -234,6 +239,7 @@ class _EditScreenState extends State<EditScreen> {
                           title: _editedProduct.title,
                           price: _editedProduct.price,
                           description: _editedProduct.description,
+                          isFavourite: _editedProduct.isFavourite,
                         );
                       },
                       onEditingComplete: () {
