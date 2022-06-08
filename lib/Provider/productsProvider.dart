@@ -55,20 +55,43 @@ class ProductsProvider with ChangeNotifier {
     return items.firstWhere((element) => element.id == id);
   }
 
-  void addProduct(Product product) {
+  Future<void> addProduct(Product product) async {
+    late final newProduct;
+    print('in addProduct()');
+
     final url = Uri.parse(
-        'https://console.firebase.google.com/u/0/project/bazaar-8d3e6/database/bazaar-8d3e6-default-rtdb/data/~2F/productsProvider.json');
-    http.post(url, body: json.encode(product));
-    final newProduct = Product(
-      id: DateTime.now().toString(),
-      imageUrl: product.imageUrl,
-      title: product.title,
-      price: product.price,
-      description: product.description,
+      'https://bazaar-8d3e6-default-rtdb.firebaseio.com/products.json',
     );
-    _items.add(newProduct);
-    _items.insert(0, newProduct);
-    notifyListeners();
+
+    try {
+      final response = await http.post(
+        url,
+        body: json.encode(
+          {
+            'title': product.title,
+            'description': product.description,
+            'imageUrl': product.imageUrl,
+            'price': product.price,
+            'isFavourite': product.isFavourite
+          },
+        ),
+      );
+      newProduct = Product(
+        id: json.decode(response.body)['name'],
+        imageUrl: product.imageUrl,
+        title: product.title,
+        price: product.price,
+        description: product.description,
+      );
+      _items.add(newProduct);
+      print('Item added');
+      notifyListeners();
+    } catch (e) {
+      // ignore: avoid_print
+      print(e.toString());
+      // ignore: use_rethrow_when_possible
+      throw e;
+    }
   }
 
   void updateProduct(String id, Product p) {

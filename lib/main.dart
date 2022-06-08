@@ -1,6 +1,7 @@
 import 'package:bazaar/Provider/orders.dart';
 import 'package:bazaar/screens/edit_screen.dart';
 import 'package:bazaar/screens/order_screen.dart';
+import 'package:bazaar/screens/splash_screen.dart';
 import 'package:bazaar/screens/user_product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.orange,
           fontFamily: 'Lato',
         ),
-        home: const ProductsOverViewScreen(),
+        home: const SplashScreen(route: ProductsOverViewScreen()),
         routes: {
           ProductDetailsScreen.routeName: (ctx) => const ProductDetailsScreen(),
           CartScreen.routeName: (ctx) => const CartScreen(),
