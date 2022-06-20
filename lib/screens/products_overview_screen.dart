@@ -1,3 +1,4 @@
+import 'package:bazaar/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,6 +26,32 @@ class ProductsOverViewScreen extends StatefulWidget {
 class _ProductsOverViewScreenState extends State<ProductsOverViewScreen> {
   final loadedProducts = [];
   var showOnlyFav = false;
+  bool _isInit = true;
+  bool _isLoading = false;
+  @override
+  void initState() {
+    // Future.delayed(Duration.zero).then(
+    //   (_) => Provider.of<ProductsProvider>(context).fetchAndSetProduct(),
+    // );
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+      Provider.of<ProductsProvider>(context).fetchAndSetProduct().then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
@@ -74,7 +101,13 @@ class _ProductsOverViewScreenState extends State<ProductsOverViewScreen> {
         ],
         title: const Text('Bazaar'),
       ),
-      body: ProductGrid(showFav: showOnlyFav),
+      body: _isLoading
+          ? const SplashScreen(
+              route: ProductsOverViewScreen(),
+            )
+          : ProductGrid(
+              showFav: showOnlyFav,
+            ),
     );
   }
 }
