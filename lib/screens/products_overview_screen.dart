@@ -25,6 +25,12 @@ class ProductsOverViewScreen extends StatefulWidget {
 class _ProductsOverViewScreenState extends State<ProductsOverViewScreen> {
   final loadedProducts = [];
   var showOnlyFav = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
