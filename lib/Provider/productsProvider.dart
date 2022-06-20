@@ -55,6 +55,17 @@ class ProductsProvider with ChangeNotifier {
     return items.firstWhere((element) => element.id == id);
   }
 
+  Future<void> fetchAndSetProduct() async {
+    final url = Uri.parse(
+      'https://bazaar-8d3e6-default-rtdb.firebaseio.com/products.json',
+    );
+    try {
+      final response = await http.get(url);
+    } catch (error) {
+      rethrow;
+    }
+  }
+
   Future<void> addProduct(Product product) async {
     late final newProduct;
     print('in addProduct()');
