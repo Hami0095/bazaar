@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:bazaar/Provider/productsProvider.dart';
+import 'package:bazaar/Themes/mythemes.dart';
 import 'package:bazaar/screens/splash_screen.dart';
 import 'package:bazaar/screens/user_product_screen.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,6 @@ class _EditScreenState extends State<EditScreen> {
   @override
   void initState() {
     _imageUrlFocusNode.addListener(updateImgUrl);
-
     super.initState();
   }
 
@@ -154,7 +154,7 @@ class _EditScreenState extends State<EditScreen> {
           IconButton(
             onPressed: (() => saveForm()),
             icon: const Icon(
-              Icons.save,
+              Icons.save_rounded,
               color: Colors.white,
             ),
           ),
@@ -173,7 +173,9 @@ class _EditScreenState extends State<EditScreen> {
                     TextFormField(
                       initialValue: _initValues['title'],
                       decoration: const InputDecoration(
-                        label: Text('Title'),
+                        label: Text(
+                          'Title',
+                        ),
                       ),
                       textInputAction: TextInputAction.next,
                       onFieldSubmitted: (_) {
