@@ -1,5 +1,6 @@
 import 'package:bazaar/screens/order_screen.dart';
 import 'package:bazaar/screens/user_product_screen.dart';
+import 'package:bazaar/widgets/theme_change_btn.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -42,6 +43,19 @@ class AppDrawer extends StatelessWidget {
               },
             ),
             const Divider(),
+            Card(
+              elevation: 2.0,
+              child: Row(
+                children: [
+                  const Text('Themes'),
+                  Flex(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    direction: Axis.horizontal,
+                  ),
+                  const ChangeThemeButton(),
+                ],
+              ),
+            )
           ],
         ),
       ),
