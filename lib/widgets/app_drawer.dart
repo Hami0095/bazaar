@@ -1,3 +1,6 @@
+import 'package:provider/provider.dart';
+
+import 'package:bazaar/Provider/themes_provider.dart';
 import 'package:bazaar/screens/order_screen.dart';
 import 'package:bazaar/screens/user_product_screen.dart';
 import 'package:bazaar/widgets/theme_change_btn.dart';
@@ -14,48 +17,67 @@ class AppDrawer extends StatelessWidget {
           children: [
             AppBar(
               automaticallyImplyLeading: false,
-              title: const Text('Hello Friend!'),
+              title: Text(
+                'Hello Friend!',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
             ),
             ListTile(
-              leading: const Icon(Icons.shop),
-              title: const Text('Shop'),
+              leading:
+                  Icon(Icons.shop, color: Theme.of(context).iconTheme.color),
+              title: Text('Shop', style: Theme.of(context).textTheme.bodyLarge),
               onTap: () {
                 Navigator.of(context).pushReplacementNamed('/');
               },
             ),
-            const Divider(),
+            Divider(color: Theme.of(context).dividerColor),
             ListTile(
-              leading: const Icon(Icons.payment),
-              title: const Text('Orders Screen'),
+              leading:
+                  Icon(Icons.payment, color: Theme.of(context).iconTheme.color),
+              title: Text(
+                'Orders Screen',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
               onTap: () {
                 Navigator.of(context)
                     .pushReplacementNamed(OrderScreen.routeName);
               },
             ),
-            const Divider(),
+            Divider(
+              color: Theme.of(context).dividerColor,
+            ),
             //TO-DO update the lower box with the user product screen.
             ListTile(
-              leading: const Icon(Icons.edit),
-              title: const Text('Manage products'),
+              leading:
+                  Icon(Icons.edit, color: Theme.of(context).iconTheme.color),
+              title: Text(
+                'Manage products',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
               onTap: () {
                 Navigator.of(context)
                     .pushReplacementNamed(UserProductScreen.routeName);
               },
             ),
-            const Divider(),
+            Divider(
+              color: Theme.of(context).dividerColor,
+            ),
             Card(
-              elevation: 2.0,
-              child: Row(
-                children: [
-                  const Text('Themes'),
-                  Flex(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    direction: Axis.horizontal,
-                  ),
-                  const ChangeThemeButton(),
-                ],
+              color: Theme.of(context).drawerTheme.backgroundColor,
+              elevation: 0.0,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Icon(Icons.color_lens),
+                    Text('Themes'),
+                    ChangeThemeButton(),
+                  ],
+                ),
               ),
-            )
+            ),
+            Divider(color: Theme.of(context).dividerColor, thickness: 2.0),
           ],
         ),
       ),

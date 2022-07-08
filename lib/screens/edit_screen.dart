@@ -129,7 +129,9 @@ class _EditScreenState extends State<EditScreen> {
                 onPressed: () {
                   Navigator.of(ctx).pop();
                 },
-                child: const Text('Okay'),
+                child: const Text(
+                  'Okay',
+                ),
               ),
             ],
           ),
