@@ -1,24 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MyThemes {
   static final lightTheme = ThemeData(
     scaffoldBackgroundColor: Colors.white,
     primarySwatch: Colors.blue,
+    drawerTheme: const DrawerThemeData(
+      backgroundColor: Colors.white,
+    ),
     textTheme: const TextTheme(
-      bodyLarge: TextStyle(
+      titleLarge: TextStyle(
+        color: Colors.black,
+        fontFamily: 'Lato',
+        fontSize: 24,
+      ),
+      titleMedium: TextStyle(
+        color: Colors.black,
+        fontFamily: 'Lato',
+        fontSize: 22,
+      ),
+      titleSmall: TextStyle(
         color: Colors.black,
         fontFamily: 'Lato',
         fontSize: 20,
       ),
+      bodyLarge: TextStyle(
+        color: Colors.black,
+        fontFamily: 'Lato',
+        fontSize: 15,
+      ),
       bodyMedium: TextStyle(
         color: Colors.black,
-        fontFamily: 'Anton',
-        fontSize: 16,
+        fontFamily: 'Lato',
+        fontSize: 13,
       ),
       bodySmall: TextStyle(
         color: Colors.black,
         fontFamily: 'Lato',
-        fontSize: 14,
+        fontSize: 11,
       ),
       headlineLarge: TextStyle(
         color: Colors.black,
@@ -50,33 +69,51 @@ class MyThemes {
     appBarTheme: const AppBarTheme(
       titleTextStyle: TextStyle(fontFamily: 'lato', color: Colors.white10),
       backgroundColor: Colors.blueAccent,
-      brightness: Brightness.light,
-      // textTheme:
+      systemOverlayStyle: SystemUiOverlayStyle.dark,
     ),
   );
+
   static final darkTheme = ThemeData(
-    scaffoldBackgroundColor: Colors.black12,
+    scaffoldBackgroundColor: Colors.black87,
     primarySwatch: Colors.purple,
+    dividerColor: Colors.blue,
+    iconTheme: const IconThemeData(
+      color: Colors.white,
+    ),
+    drawerTheme: const DrawerThemeData(
+      backgroundColor: Color.fromARGB(255, 51, 51, 51),
+    ),
+    // switchTheme: SwitchThemeData(overlayColor:  ),
     textTheme: const TextTheme(
-      bodyLarge: TextStyle(
-        color: Colors.white,
+      titleLarge: TextStyle(
+        color: Colors.blue,
         fontFamily: 'Lato',
         fontSize: 20,
       ),
-      // bodyText1: const TextStyle(
-      //   color: Colors.white,
-      //   fontFamily: 'Lato',
-      //   fontSize: 20,
-      // ),
+      titleMedium: TextStyle(
+        color: Colors.blue,
+        fontFamily: 'Lato',
+        fontSize: 18,
+      ),
+      titleSmall: TextStyle(
+        color: Colors.blue,
+        fontFamily: 'Lato',
+        fontSize: 16,
+      ),
+      bodyLarge: TextStyle(
+        color: Colors.white,
+        fontFamily: 'Lato',
+        fontSize: 15,
+      ),
       bodyMedium: TextStyle(
         color: Colors.white,
-        fontFamily: 'Anton',
-        fontSize: 16,
+        fontFamily: 'Lato',
+        fontSize: 13,
       ),
       bodySmall: TextStyle(
         color: Colors.white,
         fontFamily: 'Lato',
-        fontSize: 14,
+        fontSize: 15,
       ),
       headlineLarge: TextStyle(
         color: Colors.white,
@@ -108,7 +145,7 @@ class MyThemes {
     appBarTheme: const AppBarTheme(
       titleTextStyle: TextStyle(fontFamily: 'lato', color: Colors.white10),
       backgroundColor: Colors.lightBlueAccent,
-      brightness: Brightness.dark,
+      systemOverlayStyle: SystemUiOverlayStyle.light,
       // textTheme:
     ),
   );
