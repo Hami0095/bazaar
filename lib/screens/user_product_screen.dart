@@ -3,6 +3,7 @@ import 'package:bazaar/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../Provider/themes_provider.dart';
 import '../widgets/user-products.dart';
 import '../Provider/productsProvider.dart';
 
@@ -21,10 +22,17 @@ class UserProductScreen extends StatelessWidget {
     final productData = Provider.of<ProductsProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your Product Page'),
+        backgroundColor:
+            Provider.of<ThemesProvider>(context).themeMode == ThemeMode.dark
+                ? Colors.black87
+                : Colors.white,
+        title: Text(
+          'Your Product Page',
+          style: Theme.of(context).textTheme.bodyLarge,
+        ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.add),
+            icon: Icon(Icons.add, color: Theme.of(context).iconTheme.color),
             onPressed: () {
               Navigator.of(context).pushNamed(EditScreen.routeName);
             },

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../Provider/cart.dart';
+import '../Provider/themes_provider.dart';
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/cart-screen';
@@ -15,40 +16,52 @@ class CartScreen extends StatelessWidget {
     final cart = Provider.of<Cart>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your Cart'),
+        backgroundColor:
+            Provider.of<ThemesProvider>(context).themeMode == ThemeMode.dark
+                ? Colors.black87
+                : Colors.white,
+        title:
+            Text('Your Cart', style: Theme.of(context).textTheme.titleMedium),
       ),
       body: Column(
         children: [
           Card(
             margin: const EdgeInsets.all(15),
-            child: Padding(
+            child: Container(
               padding: const EdgeInsets.all(8.0),
+              color: Provider.of<ThemesProvider>(context).themeMode ==
+                      ThemeMode.dark
+                  ? Colors.black87
+                  : Colors.white,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     'Total',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   const Spacer(),
                   Chip(
                     label: Text(
                       '${cart.totalAmount.toStringAsFixed(2)}',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        // fontStyle: FontStyle.italic,
-                        fontSize: 18,
-                      ),
+                      style: Theme.of(context).textTheme.titleSmall,
                     ),
-                    backgroundColor: Theme.of(context).primaryColor,
+                    backgroundColor:
+                        Provider.of<ThemesProvider>(context).themeMode ==
+                                ThemeMode.dark
+                            ? Colors.black87
+                            : Colors.white,
                   ),
                   TextButton(
-                    child: const Text('Order Now'),
+                    child: Text(
+                      'Order Now',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                     onPressed: () {
                       Provider.of<Orders>(context, listen: false).addOrder(
-                          cart.items.values.toList(), cart.totalAmount);
+                        cart.items.values.toList(),
+                        cart.totalAmount,
+                      );
                       cart.clear();
                     },
                   ),

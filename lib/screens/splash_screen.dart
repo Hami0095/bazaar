@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: Lottie.network(
-        'https://assets1.lottiefiles.com/packages/lf20_wcfvcuhn.json',
+        'https://assets6.lottiefiles.com/packages/lf20_VRHN4h.json',
         controller: _controller,
         height: MediaQuery.of(context).size.height * 1,
         animate: true,

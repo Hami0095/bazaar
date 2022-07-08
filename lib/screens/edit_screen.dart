@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:lottie/lottie.dart';
 
 import '../Provider/products.dart';
+import '../Provider/themes_provider.dart';
 
 class EditScreen extends StatefulWidget {
   static const routeName = '/edit-screen';
@@ -149,15 +150,20 @@ class _EditScreenState extends State<EditScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        backgroundColor:
+            Provider.of<ThemesProvider>(context).themeMode == ThemeMode.dark
+                ? Colors.black87
+                : Colors.white,
+        title: Text(
           'Edit Your Products',
+          style: Theme.of(context).textTheme.bodyLarge,
         ),
         actions: [
           IconButton(
             onPressed: (() => saveForm()),
-            icon: const Icon(
+            icon: Icon(
               Icons.save_rounded,
-              color: Colors.white,
+              color: Theme.of(context).iconTheme.color,
             ),
           ),
         ],
@@ -174,9 +180,10 @@ class _EditScreenState extends State<EditScreen> {
                   children: [
                     TextFormField(
                       initialValue: _initValues['title'],
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         label: Text(
                           'Title',
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),
                       textInputAction: TextInputAction.next,
@@ -203,8 +210,11 @@ class _EditScreenState extends State<EditScreen> {
                     ),
                     TextFormField(
                       initialValue: _initValues['price'],
-                      decoration: const InputDecoration(
-                        label: Text('Price'),
+                      decoration: InputDecoration(
+                        label: Text(
+                          'Price',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
                       ),
                       textInputAction: TextInputAction.next,
                       focusNode: _priceFocus,
@@ -231,8 +241,11 @@ class _EditScreenState extends State<EditScreen> {
                     ),
                     TextFormField(
                       initialValue: _initValues['description'],
-                      decoration: const InputDecoration(
-                        label: Text('Description'),
+                      decoration: InputDecoration(
+                        label: Text(
+                          'Description',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
                       ),
                       maxLines: 3,
                       keyboardType: TextInputType.multiline,
@@ -269,18 +282,25 @@ class _EditScreenState extends State<EditScreen> {
                           ),
                           child: Container(
                             child: _imgController.text.isEmpty
-                                ? const Text('Enter URL')
+                                ? Text(
+                                    'Enter URL',
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                  )
                                 : FittedBox(
                                     child: Image.network(_imgController.text),
                                     fit: BoxFit.contain,
                                   ),
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           width: 250,
                           child: TextFormField(
-                            decoration:
-                                const InputDecoration(labelText: 'Image Url'),
+                            decoration: InputDecoration(
+                              labelText: 'Image Url',
+                              labelStyle:
+                                  Theme.of(context).textTheme.labelLarge,
+                            ),
                             keyboardType: TextInputType.url,
                             textInputAction: TextInputAction.done,
                             controller: _imgController,

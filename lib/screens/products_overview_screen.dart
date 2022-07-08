@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../Provider/cart.dart';
 import '../Provider/productsProvider.dart';
+import '../Provider/themes_provider.dart';
 import '../screens/cart_screen.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/badge.dart';
@@ -60,19 +61,33 @@ class _ProductsOverViewScreenState extends State<ProductsOverViewScreen> {
     return Scaffold(
       drawer: const AppDrawer(),
       appBar: AppBar(
+        iconTheme: Theme.of(context).iconTheme,
+        backgroundColor:
+            Provider.of<ThemesProvider>(context).themeMode == ThemeMode.dark
+                ? Colors.black87
+                : Colors.white,
         actions: [
           PopupMenuButton(
             itemBuilder: ((context) => [
-                  const PopupMenuItem(
-                    child: Text('My Favourites'),
+                  PopupMenuItem(
+                    child: Text(
+                      'My Favourites',
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
                     value: FilterOptions.Favourites,
                   ),
-                  const PopupMenuItem(
-                    child: Text('Show All'),
+                  PopupMenuItem(
+                    child: Text(
+                      'Show All',
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
                     value: FilterOptions.All,
                   ),
                 ]),
-            icon: const Icon(Icons.more_vert),
+            icon: Icon(
+              Icons.more_vert,
+              color: Theme.of(context).iconTheme.color,
+            ),
             onSelected: (FilterOptions selectedIndex) {
               setState(
                 () {
@@ -92,14 +107,20 @@ class _ProductsOverViewScreenState extends State<ProductsOverViewScreen> {
               color: Colors.white,
             ),
             child: IconButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(CartScreen.routeName);
-              },
-              icon: const Icon(Icons.shopping_cart),
-            ),
+                color: Theme.of(context).iconTheme.color,
+                onPressed: () {
+                  Navigator.of(context).pushNamed(CartScreen.routeName);
+                },
+                icon: Icon(
+                  Icons.shopping_cart,
+                  color: Theme.of(context).iconTheme.color,
+                )),
           ),
         ],
-        title: const Text('Bazaar'),
+        title: Text(
+          'Bazaar',
+          style: Theme.of(context).textTheme.bodyLarge,
+        ),
       ),
       body: _isLoading
           ? const SplashScreen(
