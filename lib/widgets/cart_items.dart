@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../Provider/cart.dart';
+import '../Provider/themes_provider.dart';
 
 class CartItems extends StatelessWidget {
   final String id;
@@ -38,7 +39,17 @@ class CartItems extends StatelessWidget {
         ),
         child: ListTile(
           leading: CircleAvatar(
-            child: FittedBox(fit: BoxFit.contain, child: Text('\$ $price')),
+            child: FittedBox(
+              fit: BoxFit.contain,
+              child: Text(
+                '\$ $price',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ),
+            backgroundColor:
+                Provider.of<ThemesProvider>(context).themeMode == ThemeMode.dark
+                    ? Colors.black87
+                    : Colors.white,
             radius: 25,
           ),
           title: Text(title),

@@ -2,6 +2,8 @@ import 'package:bazaar/Provider/productsProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../Provider/themes_provider.dart';
+
 class ProductDetailsScreen extends StatelessWidget {
   static const routeName = 'product-detail';
 
@@ -18,11 +20,19 @@ class ProductDetailsScreen extends StatelessWidget {
     ).findByID(productId.toString());
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text(productItem.title),
+      appBar: AppBar(
+        backgroundColor:
+            Provider.of<ThemesProvider>(context).themeMode == ThemeMode.dark
+                ? Colors.black87
+                : Colors.white,
+        title: Text(
+          productItem.title,
+          style: Theme.of(context).textTheme.titleMedium,
         ),
-        body: SingleChildScrollView(
-          child: Column(children: [
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
             Container(
               padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
               height: 400,
@@ -33,27 +43,27 @@ class ProductDetailsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const Divider(),
+            Divider(color: Theme.of(context).dividerColor),
             const SizedBox(height: 10),
             Text(
               '\$ ${productItem.price}',
-              style: const TextStyle(color: Colors.grey, fontSize: 20),
+              style: Theme.of(context).textTheme.titleSmall,
             ),
-            const Divider(),
+            Divider(color: Theme.of(context).dividerColor),
             const SizedBox(height: 20),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               width: double.infinity,
-              child: Text('${productItem.description}',
-                  softWrap: true,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.bold,
-                  )),
+              child: Text(
+                '${productItem.description}',
+                softWrap: true,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
             ),
-          ]),
-        ));
+          ],
+        ),
+      ),
+    );
   }
 }
