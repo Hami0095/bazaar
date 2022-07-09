@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../Provider/themes_provider.dart';
 
 class Badge extends StatelessWidget {
   final Widget? child;
@@ -21,12 +24,15 @@ class Badge extends StatelessWidget {
           right: 8,
           top: 8,
           child: Container(
-            padding: EdgeInsets.all(2.0),
+            padding: const EdgeInsets.all(2.0),
             // color: Theme.of(context).accentColor,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
               // ignore: deprecated_member_use
-              color: Theme.of(context).accentColor,
+              color: Provider.of<ThemesProvider>(context).themeMode ==
+                      ThemeMode.light
+                  ? Colors.black87
+                  : Colors.white,
             ),
             constraints: const BoxConstraints(
               minWidth: 16,

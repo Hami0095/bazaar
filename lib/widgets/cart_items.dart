@@ -69,7 +69,8 @@ class CartItems extends StatelessWidget {
               'Are You Sure?',
             ),
             content: const Text(
-                'Do you want to remove the item from the cart permanently?'),
+              'Do you want to remove the item from the cart permanently?',
+            ),
             actions: [
               TextButton(
                 child: Text(
