@@ -9,6 +9,7 @@ class MyThemes {
     drawerTheme: const DrawerThemeData(
       backgroundColor: Colors.white,
     ),
+    cardColor: Colors.white,
     dividerTheme: const DividerThemeData(color: Colors.purple),
     textTheme: const TextTheme(
       labelLarge: TextStyle(
@@ -94,6 +95,8 @@ class MyThemes {
     scaffoldBackgroundColor: Colors.black87,
     primarySwatch: Colors.blue,
     dividerColor: Colors.blue,
+    cardColor: Colors.black,
+    
     iconTheme: const IconThemeData(
       color: Colors.white,
     ),
